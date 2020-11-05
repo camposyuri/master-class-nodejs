@@ -1,4 +1,3 @@
-const { count } = require("../database");
 const knex = require("../database");
 
 module.exports = {

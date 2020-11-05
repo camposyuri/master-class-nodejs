@@ -5,8 +5,11 @@ module.exports = {
     const { id } = request.params;
 
     const results = await knex("users");
+    // .where("deleted_at", null);
+
     return response.json(results);
   },
+
   async create(request, response, next) {
     const { username } = request.body;
 
@@ -38,7 +41,10 @@ module.exports = {
     try {
       const { id } = request.params;
 
-      await knex("users").where({ id }).del();
+      await knex("users")
+        .where({ id })
+        // .update("deleted_at", new Date())
+        .del();
 
       return response.send();
     } catch (error) {
