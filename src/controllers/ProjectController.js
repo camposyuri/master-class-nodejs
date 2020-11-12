@@ -1,4 +1,5 @@
 const knex = require("../database");
+const { update } = require("./UserController");
 
 module.exports = {
   async index(request, response, next) {
@@ -7,6 +8,7 @@ module.exports = {
       const countObj = knex("projects").count();
 
       const query = knex("projects")
+        .orderBy("id")
         .limit(5)
         .offset((page - 1) * 5);
 
@@ -47,6 +49,19 @@ module.exports = {
       });
 
       return response.status(201).send();
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async update(request, response, next) {
+    try {
+      const { title } = request.body;
+      const { id } = request.params;
+
+      await knex("projects").update({ title }).where({ id });
+
+      return response.send();
     } catch (error) {
       next(error);
     }
