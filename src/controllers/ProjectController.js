@@ -14,7 +14,8 @@ module.exports = {
         query
           .where({ user_id })
           .join("users", "users.id", "=", "projects.user_id")
-          .select("projects.*", "users.username");
+          .select("projects.*", "users.username")
+          .orderBy("id");
 
         countObj.where({ user_id });
       }
