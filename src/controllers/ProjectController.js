@@ -1,5 +1,4 @@
 const knex = require("../database");
-const { update } = require("./UserController");
 
 module.exports = {
   async index(request, response, next) {
