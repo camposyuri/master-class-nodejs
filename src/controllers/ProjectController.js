@@ -19,6 +19,12 @@ module.exports = {
 
         countObj.where({ user_id });
       }
+      // else {
+      //   query
+      //     .join("users", "users.id", "=", "projects.user_id")
+      //     .select("projects.*", "users.username")
+      //     .orderBy("id");
+      // }
 
       const [count] = await countObj;
       response.header("X-Total-Count", count["count"]);
@@ -39,6 +45,17 @@ module.exports = {
         title,
         user_id,
       });
+
+      return response.status(201).send();
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async remove(request, response, next) {
+    try {
+      const { id } = request.params;
+      await knex("projects").where({ id }).del();
 
       return response.status(201).send();
     } catch (error) {
