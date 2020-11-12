@@ -23,11 +23,14 @@ module.exports = {
   },
 
   async create(request, response, next) {
-    const { username } = request.body;
+    const { username, name, email, number } = request.body;
 
     try {
       await knex("users").insert({
         username,
+        name,
+        email,
+        number,
       });
 
       return response.status(201).send();
@@ -38,10 +41,12 @@ module.exports = {
 
   async update(request, response, next) {
     try {
-      const { username } = request.body;
+      const { username, name, email, number } = request.body;
       const { id } = request.params;
 
-      await knex("users").update({ username }).where({ id });
+      await knex("users")
+        .update({ username, name, email, number })
+        .where({ id });
 
       return response.send();
     } catch (error) {
