@@ -7,6 +7,7 @@ const ProjectController = require("./controllers/ProjectController");
 routes
   // Users
   .get("/users", UserController.index)
+  .get("/users/:id", UserController.indexID)
   .post("/users", UserController.create)
   .put("/users/:id", UserController.update)
   .delete("/users/:id", UserController.delete)

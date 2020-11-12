@@ -15,17 +15,11 @@ module.exports = {
         query
           .where({ user_id })
           .join("users", "users.id", "=", "projects.user_id")
-          .select("projects.*", "users.username")
-          .orderBy("id");
+          .select("projects.*", "users.username");
+        // .orderBy("id");
 
         countObj.where({ user_id });
       }
-      // else {
-      //   query
-      //     .join("users", "users.id", "=", "projects.user_id")
-      //     .select("projects.*", "users.username")
-      //     .orderBy("id");
-      // }
 
       const [count] = await countObj;
       response.header("X-Total-Count", count["count"]);

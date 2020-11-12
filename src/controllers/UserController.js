@@ -10,6 +10,18 @@ module.exports = {
     return response.json(results);
   },
 
+  async indexID(request, response, next) {
+    try {
+      const { id } = request.params;
+
+      const results = await knex("users").select("*").where({ id });
+
+      return response.json(results);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async create(request, response, next) {
     const { username } = request.body;
 
